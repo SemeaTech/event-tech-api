@@ -27,6 +27,18 @@ export class SessionController {
 
   @Post('logout')
   async logout(@Res() res: Response) {
-    return res.clearCookie('token').json({ message: 'Session destroyed successfully' });
+    try {
+      res
+        .status(200)
+        .clearCookie('token', { 
+          httpOnly: process.env.NODE_ENV === 'production',
+          secure: process.env.NODE_ENV === 'production',
+          domain: process.env.DOMAIN,
+          sameSite: "lax",
+        })
+        .json({ message: "Logged out successfully" });
+    } catch (error) {
+      return res.status(500).json({ message: "Internal Server Error", error: error.message });
+    }
   }
 }
