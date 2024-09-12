@@ -23,6 +23,12 @@ export class Event {
   eventPrice: number;
 
   @Column({
+    type: "text",
+    nullable: true,
+  })
+  eventPageLink: string;
+
+  @Column({
     type: "uuid",
     nullable: false,
     unique: false,

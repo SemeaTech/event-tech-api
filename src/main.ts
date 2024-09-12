@@ -15,6 +15,14 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({
     transform: true,
   }));
+
+  app.use((_req: Request, res: express.Response, next: express.NextFunction) => {
+    res.header('Access-Control-Allow-Credentials', 'true')
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'X-CSFR-Token,X-Requested-With, content-type, Authorization');
+    next();
+  });
   
   app.enableCors({
     origin,

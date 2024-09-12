@@ -20,8 +20,12 @@ export class SessionController {
       expires: new Date(Date.now() + 1000 * 60 * 60),
       httpOnly: process.env.NODE_ENV === 'production',
       secure: process.env.NODE_ENV === 'production',
-      path: "/",
       sameSite: "lax",
     }).json({ message: "Session created successfully" });
+  }
+
+  @Post('logout')
+  async logout(@Res() res: Response) {
+    return res.clearCookie('token').json({ message: 'Session destroyed successfully' });
   }
 }

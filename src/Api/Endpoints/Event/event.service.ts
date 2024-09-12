@@ -22,6 +22,7 @@ export class EventService {
         'event.organization', 
         'event.eventDays', 
         'event.eventPrice', 
+        'event.eventPageLink',
         'user.id', 
         'user.name'
       ])
@@ -36,6 +37,7 @@ export class EventService {
     event.eventDays = eventDto.eventDays;
     event.eventPrice = eventDto.eventPrice;
     event.userId = userId;
+    event.eventPageLink = eventDto.eventPageLink;
 
     await this.eventRepository.save(event);
   }

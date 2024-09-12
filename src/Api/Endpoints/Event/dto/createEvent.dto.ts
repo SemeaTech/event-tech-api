@@ -30,4 +30,10 @@ export class createEventDto {
     required: true,
   })
   eventPrice: number;
+
+  @ApiProperty({
+    type: String,
+    required: true,
+  })
+  eventPageLink: string;
 }

@@ -1,7 +1,7 @@
-import { BadGatewayException, Injectable } from "@nestjs/common";
+import { Injectable, BadRequestException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { User } from "./entity/user.entity";
-import { Repository } from "typeorm";
+import { Not, Repository } from "typeorm";
 import { createUserDto } from "./dto/createUser.dto";
 import { ManagePassword } from "src/Api/utils/bcrypt/managePassword";
 
@@ -16,7 +16,7 @@ export class UserService {
     const userAlreadyExists = await this.usersRepository.findOneBy({ email });
 
     if (userAlreadyExists) {
-      throw new BadGatewayException("User already exists");
+      throw new BadRequestException("User already exists");
     }
     
     const user = new User();

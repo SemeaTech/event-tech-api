@@ -1,4 +1,4 @@
-import { Body, Controller, HttpStatus, Post, Res } from "@nestjs/common";
+import { BadRequestException, Body, Controller, HttpStatus, Post, Res } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 import { Public } from "src/Api/decorators/public.routes";
 import { UserService } from "./user.service";
@@ -17,6 +17,9 @@ export class UserController {
       await this.service.register(body);
       return res.status(HttpStatus.CREATED).json({ message: 'user created' });
     } catch (error) {
+      if (error instanceof BadRequestException) {
+        return res.status(HttpStatus.BAD_REQUEST).json({ message: error.message });
+      }
       return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: error.message });
     }
   }
