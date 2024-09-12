@@ -20,6 +20,7 @@ export class SessionController {
       expires: new Date(Date.now() + 1000 * 60 * 60),
       httpOnly: process.env.NODE_ENV === 'production',
       secure: process.env.NODE_ENV === 'production',
+      domain: process.env.DOMAIN,
       sameSite: "lax",
     }).json({ message: "Session created successfully" });
   }
