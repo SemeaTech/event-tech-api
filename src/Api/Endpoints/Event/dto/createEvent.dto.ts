@@ -1,4 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { IDateRange } from "../event.interface";
 
 export class createEventDto {
   @ApiProperty({
@@ -11,19 +12,16 @@ export class createEventDto {
     type: Date,
     required: true,
   })
-  dateEvent: Date;
+  startDate: Date;
+
+  @ApiProperty()
+  endDate: Date;
 
   @ApiProperty({
     type: String,
     required: true,
   })
   organization: string;
-
-  @ApiProperty({
-    type: Number,
-    required: true,
-  })
-  eventDays: number;
   
   @ApiProperty({
     type: Number,

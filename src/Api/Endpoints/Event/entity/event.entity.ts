@@ -11,13 +11,15 @@ export class Event {
   location: string;
 
   @Column()
-  dateEvent: Date;
+  startDate: Date;
+
+  @Column({
+    nullable: true,
+  })
+  endDate: Date;
 
   @Column()
   organization: string;
-
-  @Column()
-  eventDays: number;
 
   @Column()
   eventPrice: number;

@@ -12,6 +12,13 @@ export class UserService {
     private readonly usersRepository: Repository<User>,
   ) {}
 
+  async getUserById(id: string) {
+    const user = await this.usersRepository.findOneBy({ id });
+    return {
+      name: user.name,
+    };
+  }
+
   async register({ email, password, name }: createUserDto) {
     const userAlreadyExists = await this.usersRepository.findOneBy({ email });
 
