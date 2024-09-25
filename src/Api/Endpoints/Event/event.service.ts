@@ -3,7 +3,6 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Event } from "./entity/event.entity";
 import { Repository } from "typeorm";
 import { createEventDto } from "./dto/createEvent.dto";
-import { start } from "repl";
 
 @Injectable()
 export class EventService {
@@ -73,5 +72,9 @@ export class EventService {
     event.eventPageLink = eventDto.eventPageLink;
 
     await this.eventRepository.save(event);
+  }
+
+  async deleteEvent(id: string) {
+    await this.eventRepository.delete({ id });
   }
 }

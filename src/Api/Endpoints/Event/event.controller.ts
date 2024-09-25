@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpStatus, Param, Post, Put, Req, Res } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Req, Res } from "@nestjs/common";
 import { ApiBody, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { createEventDto } from "./dto/createEvent.dto";
 import { Response } from "express";
@@ -65,6 +65,19 @@ export class EventController {
     try {
       await this.eventService.updateEvent(id, updateEventDto, userId);
       return res.status(HttpStatus.OK).json({ message: 'event updated' });
+    } catch (error) {
+      console.log(error);
+      return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: error.message });
+    }
+  }
+
+  @Delete("delete/:id")
+  @ApiResponse({ status: HttpStatus.OK, description: 'event deleted' })
+  @ApiResponse({ status: HttpStatus.INTERNAL_SERVER_ERROR, description: 'bad request' })
+  async deleteEvent(@Param('id') id: string, @Req() req: ICustomRequest, @Res() res: Response) {
+    try {
+      await this.eventService.deleteEvent(id);
+      return res.status(HttpStatus.OK).json({ message: 'event deleted' });
     } catch (error) {
       console.log(error);
       return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: error.message });
